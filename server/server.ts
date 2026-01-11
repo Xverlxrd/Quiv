@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { AppDataSource, initializeDatabase } from './data-source';
+import {authRouter} from "./src/routes/auth.router";
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(morgan('dev'));
+
+app.use('/', authRouter)
 
 app.get('/health', async (req, res) => {
     try {
