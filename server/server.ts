@@ -6,6 +6,8 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { AppDataSource, initializeDatabase } from './data-source';
 import {authRouter} from "./src/routes/auth.router";
+import {contactRouter} from "./src/routes/contact.router";
+import {projectRouter} from "./src/routes/project.router";
 
 dotenv.config();
 
@@ -18,6 +20,8 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 app.use('/', authRouter)
+app.use('/', contactRouter)
+app.use('/', projectRouter)
 
 app.get('/health', async (req, res) => {
     try {

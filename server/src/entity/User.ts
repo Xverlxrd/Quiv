@@ -1,4 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index } from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    CreateDateColumn,
+    Index,
+    OneToMany
+} from 'typeorm';
+import { Contact } from "./Contact";
+import { Project } from "./Project";
+import { ProjectMember } from "./ProjectMember";
 
 @Entity('users')
 export class User {
@@ -29,4 +39,16 @@ export class User {
 
     @CreateDateColumn()
     createdAt!: Date;
+
+    @OneToMany(() => Contact, contact => contact.user)
+    contacts!: Contact[];
+
+    @OneToMany(() => Contact, contact => contact.contact)
+    addedBy!: Contact[];
+
+    @OneToMany(() => Project, project => project.owner)
+    ownedProjects!: Project[];
+
+    @OneToMany(() => ProjectMember, projectMember => projectMember.user)
+    projectMemberships!: ProjectMember[];
 }
